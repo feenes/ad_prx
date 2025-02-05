@@ -16,7 +16,7 @@ class ProxyObj:
         self.id = id_
 
 
-class ConnectionProxy:
+class ConnectionProxy(ProxyObj):
     """ proxy connection object """
     # con.set_option()
     # con.simple_bind_s(uid, passwd)
@@ -43,7 +43,7 @@ class PrxClient:
     def post(self, rel_url, data):
         url = f"{self.url}{rel_url}"
         print(f"post to {url} {data}")
-        rslt = requests.post(self.url, cert=self.cert, data=data)
+        rslt = requests.post(url, cert=self.cert, json=data)
         print(f"{rslt=}")
 
     def initialize(self, *args, **kwargs):
@@ -51,12 +51,13 @@ class PrxClient:
         handle  con = ldap.initialize()
         """
         print(f"ldap.initialize({args}, {kwargs})")
-        data = dict(kwargs)
-        for ctr, arg in enumerate(args):
-            data[f"arg{ctr}"] = str(arg)
+        data = {
+            "args": args,
+            "kwargs": kwargs,
+        }
         self.post("initialize", data=data)
         id_ = 1
-        connection = ConnectionProxy(self.fqdn, cert, id_)
+        connection = ConnectionProxy(self.url, self.cert, id_)
 
     def sasl_dig_md5(self, *args, **kwargs):
         """
