@@ -6,6 +6,8 @@ import ldap
 
 from sanic import Sanic
 from sanic.request import Request
+from sanic.response import text
+
 
 app = Sanic("AD_PRX")
 
@@ -21,4 +23,4 @@ def check_auth(request):
 @app.get(f"{PFX}/")
 async def index(request: Request):
     check_auth(request)
-    return text("", status=200)
+    return text(f"{PFX}", status=200)
