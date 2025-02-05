@@ -1,0 +1,4 @@
+dist
+.env
+.envrc
+__pycache__

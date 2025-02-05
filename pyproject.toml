@@ -1,0 +1,37 @@
+[project]
+name = "ad-prx"
+version = "0.1.0"
+description = "http to ldap proxy for development"
+authors = [
+    {name = "feenes@teledomic.eu"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.11,<4.0"
+dependencies = [
+    "sanic (>=24.12.0,<25.0.0)",
+    "mytb (>=0.1.3,<0.2.0)"
+]
+
+[tool.poetry]
+packages = [{ include = "ad_prx", from = "src" }]
+
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.3"
+black = "^25.1.0"
+isort = "^6.0.0"
+flake8 = "^7.1.1"
+ipython = "^8.32.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 79
